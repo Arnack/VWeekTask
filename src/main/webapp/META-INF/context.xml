@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <ResourceLink name="jdbc/HW2"
+                  global="jdbc/HW2"
+                  type="javax.sql.DataSource"
+    />
+</Context>

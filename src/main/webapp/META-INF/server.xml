@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GlobalNamingResources>
+<Resource name="jdbc/HW2"
+          global="jdbc/HW2"
+          factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+          auth="Container"
+          type="javax.sql.DataSource"
+          username="root"
+          password="hminnopolis"
+          driverClassName="com.mysql.jdbc.Driver"
+          description="User database that can be updated and saved"
+          url="jdbc:mysql://localhost:3306/HW2"
+          maxWaitMillis="10000"
+          maxTotal="10"
+          maxIdle="10"
+          removeAbandonedTimeout="300"
+          defaultAutoCommit="true"
+/>
+        </GlobalNamingResources>
