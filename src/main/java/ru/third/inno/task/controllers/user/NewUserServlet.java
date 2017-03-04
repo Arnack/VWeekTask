@@ -1,9 +1,14 @@
 package ru.third.inno.task.controllers.user;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.UserDaoException;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.dao.UserDao;
+import ru.third.inno.task.models.dao.iUserDao;
 import ru.third.inno.task.services.UserService;
+import ru.third.inno.task.services.iUserService;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -17,8 +22,24 @@ import java.sql.SQLException;
  * Created by yy on 24.02.17.
  * This servlet is for creating new users by admin
  */
-public class NewUserServlet  extends HttpServlet {
+@Component
+public class NewUserServlet  extends InitServlet {
     Logger logger = Logger.getLogger(NewUserServlet.class);
+
+    iUserDao userDao;
+
+    @Autowired
+    public void setUserDao(iUserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    iUserService userService;
+
+    @Autowired
+    public void setUserService(iUserService userService) {
+        this.userService = userService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("message", null);
@@ -32,8 +53,8 @@ public class NewUserServlet  extends HttpServlet {
         String password = req.getParameter("password");
 
         try {
-            if (UserDao.getUserByName(login)) {
-                UserService.registration(login, password);
+            if (userDao.getUserByName(login)) {
+                userService.registration(login, password);
             }else {
                 String message = "This username is already exists, sorry\r\n <br> Please, try again with another one";
                 req.setAttribute("message", message);

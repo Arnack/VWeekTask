@@ -1,9 +1,13 @@
 package ru.third.inno.task.controllers.user;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.UserDaoException;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
+import ru.third.inno.task.services.iUserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,15 +20,23 @@ import java.io.IOException;
  * This servlet gets parameters to delete user
  * Then invokes DAO's delete user method
  */
-public class EditUserServlet extends HttpServlet {
+@Component
+public class EditUserServlet extends InitServlet {
 
     private static Logger logger = Logger.getLogger(EditUserServlet.class);
+
+    iUserService userService;
+
+    @Autowired
+    public void setUserService(iUserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = null;
         try {
-            user = UserService.getUserById(req.getParameter("id"));
+            user = userService.getUserById(req.getParameter("id"));
             req.setAttribute("id", user.getId());
             req.setAttribute("login", user.getLogin());
             req.setAttribute("description", user.getDescription());
@@ -54,7 +66,7 @@ public class EditUserServlet extends HttpServlet {
         String role = req.getParameter("role");
         logger.trace("get for update - role: " + role);
 
-        if(UserService.updateUser(id, login, password, description, role)){
+        if(userService.updateUser(id, login, password, description, role)){
             resp.sendRedirect("/users");
         }else{
             logger.error("can not edit user");

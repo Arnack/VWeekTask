@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 import ru.third.inno.task.common.exception.SubjectDaoException;
 import ru.third.inno.task.models.connector.ConnectionPool;
 import ru.third.inno.task.models.connector.Connector;
+import ru.third.inno.task.models.connector.VDBconn;
 import ru.third.inno.task.models.pojo.Subject;
 
+import javax.naming.NamingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
  * Created by bot on 23.02.17.
  */
 @Repository
-public class SubjectDao {
+public class SubjectDao implements iSubjectDao {
 
     private static Logger logger = Logger.getLogger(SubjectDao.class);
     private static final String SQL_GET_ALL_SUBJECTS =
@@ -34,9 +36,21 @@ public class SubjectDao {
     private static String SQL_DELETE_SUBJECT_BY_ID = "DELETE FROM subject WHERE id=?";
     private static String SQL_GET_ALL_SUBJECTS_BY_USER_ID = "SELECT * FROM board LEFT JOIN subject ON subject.id = board.subject_id WHERE board.person_id = ";
 
-    public static boolean updateSubject(String id, String name, String description, String sphere){
-        try(Connection connection = Connector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_SUBJECT)) {
+    @Override
+    public boolean updateSubject(String id, String name, String description, String sphere){
+
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_SUBJECT);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, description);
             preparedStatement.setString(3, sphere);
@@ -50,13 +64,33 @@ public class SubjectDao {
             }
         } catch (SQLException e) {
             logger.error(e);
+        }finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
         }
         return false;
     }
 
-    public static boolean deleteSubjectById(String id){
-        try(Connection connection = Connector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_SUBJECT_BY_ID)) {
+    @Override
+    public boolean deleteSubjectById(String id){
+
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_SUBJECT_BY_ID);
             preparedStatement.setString(1, id);
             int count = preparedStatement.executeUpdate();
             if(count > 0){
@@ -67,15 +101,36 @@ public class SubjectDao {
             }
         } catch (SQLException e) {
             logger.error(e);
+        }finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
         }
         return false;
     }
 
-    public static Subject getSubjectById(int id) throws SubjectDaoException {
+    @Override
+    public Subject getSubjectById(int id) throws SubjectDaoException {
         logger.debug(id + " right?");
         Subject subject = null;
-        try(Connection connection = Connector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_SUBJECT_ON_ID)) {
+
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_SUBJECT_ON_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
@@ -92,6 +147,15 @@ public class SubjectDao {
         } catch (SQLException e) {
             logger.error(" try connection(?) falture " + e);
             throw new SubjectDaoException();
+        }finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
         }
         return subject;
 
@@ -99,9 +163,20 @@ public class SubjectDao {
 
 
 
-    public static boolean createSubject(String name, String description, String sphere){
-        try(Connection connection = Connector.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_SUBJECT)) {
+    @Override
+    public boolean createSubject(String name, String description, String sphere){
+
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_SUBJECT);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, description);
             preparedStatement.setString(3, sphere);
@@ -114,18 +189,38 @@ public class SubjectDao {
             }
         } catch (SQLException e) {
             logger.error(e);
+        }finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
         }
         return false;
     }
 
-    public static List<Subject> getAllSubjects() throws SubjectDaoException {
+    @Override
+    public List<Subject> getAllSubjects() throws SubjectDaoException {
         System.out.println("");
         Subject subject;
 
         List<Subject> subjects = new ArrayList<>();
-        try(Connection connection = Connector.getConnection();
-            Statement statement = connection.createStatement()) {
 
+
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_ALL_SUBJECTS);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -145,22 +240,41 @@ public class SubjectDao {
         } catch (SQLException e) {
             logger.error(e);
             throw new SubjectDaoException();
+        }finally {
+
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
         }
 
         return subjects;
     }
 
-    public static List<Subject> getAllUserSubjects(int id) throws SubjectDaoException, SQLException {
+    @Override
+    public List<Subject> getAllUserSubjects(int id) throws SubjectDaoException, SQLException {
 
         Subject subject;
 
         List<Subject> subjects = new ArrayList<>();
 
             logger.trace("new con pool");
-            ConnectionPool connectionPool = new ConnectionPool();
-            Connection conpool = connectionPool.retrieve();
 
-            PreparedStatement preparedStatement = conpool.prepareStatement(SQL_GET_ALL_SUBJECTS_BY_USER_ID + id);
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_ALL_SUBJECTS_BY_USER_ID + id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 logger.debug("Select All subjects");
@@ -176,16 +290,36 @@ public class SubjectDao {
             }
 
 
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
+
+
         return subjects;
     }
 
-    public static List<Subject> getAllNotUserSubjects(int id) throws SubjectDaoException {
+    @Override
+    public List<Subject> getAllNotUserSubjects(int id) throws SubjectDaoException {
         Subject subject;
 
         List<Subject> subjects = new ArrayList<>();
-        try(Connection connection = Connector.getConnection();
-            Statement statement = connection.createStatement()) {
 
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+
+        try{
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_ALL_NOT_MY_SUBJECTS + id + ");");
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
@@ -198,12 +332,19 @@ public class SubjectDao {
                         resultSet.getString("sphere")
                 );
                 subjects.add(subject);
-
-
             }
         } catch (SQLException e) {
             logger.error(e);
             throw new SubjectDaoException();
+        }finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
         }
 
         return subjects;

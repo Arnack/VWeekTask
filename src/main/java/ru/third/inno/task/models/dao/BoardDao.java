@@ -18,6 +18,9 @@ public class BoardDao implements iBoardDao {
     private static final String SQL_DELETE_BOARD_BY_USER_AND_SUBJECT_ID =
             "DELETE FROM board WHERE person_id=? AND subject_id=?;";
 
+    private static final String SQL_DELETE_BOARDS_BY_SUBJECT_ID =
+            "DELETE FROM board WHERE subject_id=?;";
+
     private static final String ADD_BOARD_BY_USER_AND_SUBJECT_ID =
             "INSERT INTO board (person_id, subject_id) VALUES (?, ?);";
 
@@ -62,5 +65,25 @@ public class BoardDao implements iBoardDao {
         }
         return false;
     }
+
+    @Override
+    public boolean deleteBoardAniway(String subject_id) {
+        try(Connection connection = Connector.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(BoardDao.SQL_DELETE_BOARDS_BY_SUBJECT_ID)) {
+            preparedStatement.setString(1, subject_id);
+            int count = preparedStatement.executeUpdate();
+            if(count > 0){
+                BoardDao.logger.debug("deleted " + count);
+                return true;
+            }else{
+                BoardDao.logger.debug(subject_id + "  not deleted");
+            }
+        } catch (SQLException e) {
+            BoardDao.logger.error(e);
+        }
+
+        return false;
+    }
+
 
 }

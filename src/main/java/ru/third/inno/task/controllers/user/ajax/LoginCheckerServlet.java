@@ -1,7 +1,10 @@
 package ru.third.inno.task.controllers.user.ajax;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.UserDaoException;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.dao.UserDao;
 
 import javax.servlet.ServletException;
@@ -15,8 +18,16 @@ import java.io.IOException;
  * This servlet is for checking login "on flight"
  * It send SQL queries by DAO
  */
-public class LoginCheckerServlet extends HttpServlet {
+@Component
+public class LoginCheckerServlet extends InitServlet {
     Logger logger = Logger.getLogger(LoginCheckerServlet.class);
+
+    UserDao userDao;
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +38,7 @@ public class LoginCheckerServlet extends HttpServlet {
 
         if(!(login.equals("")) && (login != null)){
             try {
-                if (UserDao.getUserByName(login)){
+                if (userDao.getUserByName(login)){
                     logger.info("user finded");
                     responseText = "<p style='color: forestgreen;'>" + "This login is free to use" + "</p>";
                 } else {

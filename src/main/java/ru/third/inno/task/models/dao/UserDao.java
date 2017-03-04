@@ -1,6 +1,7 @@
 package ru.third.inno.task.models.dao;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 import ru.third.inno.task.common.exception.UserDaoException;
 import ru.third.inno.task.models.connector.VDBconn;
 import ru.third.inno.task.models.pojo.User;
@@ -16,7 +17,8 @@ import java.util.List;
 /**
  * Created by bot on 23.02.17.
  */
-public class UserDao {
+@Repository
+public class UserDao implements iUserDao {
 
    private static Logger logger = Logger.getLogger(UserDao.class);
     private static final String SQL_FIND_USER =
@@ -40,7 +42,8 @@ public class UserDao {
     private static String SQL_FIND_USER_ON_ID = "SELECT * FROM person WHERE id=?";
     private static String SQL_DELETE_USER_BY_ID = "DELETE FROM person WHERE id=?";
 
-    public static boolean getUserByName(String name) throws UserDaoException {
+    @Override
+    public boolean getUserByName(String name) throws UserDaoException {
         Connection connection = null;
         try {
             connection = VDBconn.getConn();
@@ -79,7 +82,8 @@ public class UserDao {
 
 
 
-    public static boolean updateUser(String id, String login, String password, String description, String role){
+    @Override
+    public boolean updateUser(String id, String login, String password, String description, String role){
 
         Connection connection = null;
         try {
@@ -119,7 +123,8 @@ public class UserDao {
         return false;
     }
 
-    public static boolean updateUserDescription(String id, String description, String pass){
+    @Override
+    public boolean updateUserDescription(String id, String description, String pass){
 
         Connection connection = null;
         try {
@@ -157,7 +162,8 @@ public class UserDao {
         return false;
     }
 
-    public static boolean deleteUserById(String id){
+    @Override
+    public boolean deleteUserById(String id){
 
         Connection connection = null;
         try {
@@ -193,7 +199,8 @@ public class UserDao {
         return false;
     }
 
-    public static User getUserById(String id) throws UserDaoException {
+    @Override
+    public User getUserById(String id) throws UserDaoException {
 
         User user = null;
 
@@ -240,7 +247,8 @@ public class UserDao {
     }
 
 
-    public static String getEadressByName(String name) throws UserDaoException {
+    @Override
+    public String getEadressByName(String name) throws UserDaoException {
 
         String eadress = null;
 
@@ -286,7 +294,8 @@ public class UserDao {
 
 
 
-    public static User getUserByLoginAndPassword(String login, String password) throws UserDaoException {
+    @Override
+    public User getUserByLoginAndPassword(String login, String password) throws UserDaoException {
 
         User user = null;
 
@@ -330,7 +339,8 @@ public class UserDao {
         return user;
     }
 
-    public static boolean registerUser(String login, String password) throws SQLException, NamingException {
+    @Override
+    public boolean registerUser(String login, String password) throws SQLException, NamingException {
         Connection connection = VDBconn.getConn();
         try{
 
@@ -355,7 +365,8 @@ public class UserDao {
         return false;
     }
 
-    public static List<User> getAllUsers() throws UserDaoException {
+    @Override
+    public List<User> getAllUsers() throws UserDaoException {
         User user = null;
 
         Connection conpool = null;
@@ -407,7 +418,8 @@ public class UserDao {
 
 
 
-    public static List<User> getAlUsers() throws UserDaoException, SQLException, NamingException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    @Override
+    public List<User> getAlUsers() throws UserDaoException, SQLException, NamingException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         User user = null;
 
         Connection conpool = VDBconn.getConn();

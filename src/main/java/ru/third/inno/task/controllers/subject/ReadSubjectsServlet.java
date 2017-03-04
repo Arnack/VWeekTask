@@ -1,8 +1,12 @@
 package ru.third.inno.task.controllers.subject;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.pojo.Subject;
 import ru.third.inno.task.services.SubjectService;
+import ru.third.inno.task.services.iSubjectService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +19,16 @@ import java.util.List;
 /**
  * Created by yy on 24.02.17.
  */
-public class ReadSubjectsServlet extends HttpServlet {
+@Component
+public class ReadSubjectsServlet extends InitServlet {
     Logger logger = Logger.getLogger(ReadSubjectsServlet.class);
+
+    iSubjectService subjectService;
+
+    @Autowired
+    public void setSubjectService(iSubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
 
     /**
      * Gets All user's subjects and others subjects
@@ -40,14 +52,14 @@ public class ReadSubjectsServlet extends HttpServlet {
         /**
          * gets not users subjects
          */
-        subjects = SubjectService.getAllNotUserSubjects(id);
+        subjects = subjectService.getAllNotUserSubjects(id);
         req.setAttribute("subjects", subjects);
 
         List<Subject> userSubjects = null;
         /**
          * all user subjects
          */
-        userSubjects = SubjectService.getAllUserSubjects(id);
+        userSubjects = subjectService.getAllUserSubjects(id);
 
 
         req.setAttribute("userSubjects", userSubjects);

@@ -8,11 +8,11 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <title><%request.getPathInfo(); %></title>
 
-    <link rel="stylesheet" href="../resources/static/css/bootstrap.css">
 
     <style>
         <% if (session.getAttribute("night") == null || session.getAttribute("night").equals("day")){ %>
         <%@include file='../resources/static/css/bootstrap.css'%>
+        <%//@include file='../resources/static/css/bootstrap-material-design.min.css'%>
         header{
             border-bottom: 2px solid steelblue;
             position: fixed;
@@ -44,8 +44,8 @@
         <% }else{ %>
         <%@include file='../resources/static/css/night-theme.css'%>
         header{
-            position: fixed;
-            width: 100%;
+          /*  position: fixed;
+            width: 100%;*/
             border-bottom: 2px solid gainsboro;
             background-color: #272b30;
         }
@@ -129,7 +129,7 @@
 
 </head>
 <body>
-<header>
+<header class="navbar-fixed-top">
     <div class="container"> <div class="navbar-header">
     <button aria-controls="bs-navbar" aria-expanded="false" class="collapsed navbar-toggle" data-target="#bs-navbar" data-toggle="collapse" type="button">
         <span class="sr-only">Toggle navigation</span>

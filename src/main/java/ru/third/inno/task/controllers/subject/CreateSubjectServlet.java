@@ -1,6 +1,9 @@
 package ru.third.inno.task.controllers.subject;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.services.SubjectService;
 
 import javax.servlet.ServletException;
@@ -14,8 +17,17 @@ import java.io.IOException;
  * This servlet is for creating tasks, it gets parameters by post query
  * And invokes a DB writer
  */
-public class CreateSubjectServlet extends HttpServlet {
+@Component
+public class CreateSubjectServlet extends InitServlet {
     Logger logger = Logger.getLogger(CreateSubjectServlet.class);
+
+    SubjectService subjectService;
+
+    @Autowired
+    public void setSubjectService(SubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("message", null);
@@ -29,7 +41,9 @@ public class CreateSubjectServlet extends HttpServlet {
         String description = req.getParameter("description");
         String sphere = req.getParameter("sphere");
 
-        SubjectService.create(name, description, sphere);
+        logger.trace("name: " + name + "\r\ndescription: " + description + "\r\nsphere" + sphere );
+
+        subjectService.create(name, description, sphere);
 
         resp.sendRedirect("/subjects");
     }

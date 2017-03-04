@@ -1,7 +1,10 @@
 package ru.third.inno.task.controllers.user;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.UserDaoException;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.dao.UserDao;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
@@ -21,8 +24,25 @@ import java.sql.SQLException;
  * It gets login and password
  * If registration succeed it creates session else it send message to the front
  */
-public class RegisterServlet extends HttpServlet {
+
+@Component
+public class RegisterServlet extends InitServlet {
     Logger logger = Logger.getLogger(RegisterServlet.class);
+
+    UserDao userDao;
+
+    @Autowired
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("message", null);
@@ -37,10 +57,10 @@ public class RegisterServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         try {
-            if (UserDao.getUserByName(login)){
-                UserService.registration(login, password);
+            if (userDao.getUserByName(login)){
+                userService.registration(login, password);
 
-                User user = UserService.getUserByLoginAndPassword(login, password);
+                User user = userService.getUserByLoginAndPassword(login, password);
 
                 session.setAttribute("id", user.getId());
                 session.setAttribute("name", user.getLogin());

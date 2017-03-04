@@ -1,7 +1,10 @@
 package ru.third.inno.task.controllers.subject;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.SubjectDaoException;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.pojo.Subject;
 import ru.third.inno.task.services.SubjectService;
 
@@ -16,9 +19,18 @@ import java.io.IOException;
  * This servlet sends information to front by get qury
  * And gets ifo by post query
  */
-public class EditSubjectServlet extends HttpServlet {
+@Component
+public class EditSubjectServlet extends InitServlet {
 
     private static Logger logger = Logger.getLogger(EditSubjectServlet.class);
+
+    SubjectService subjectService;
+
+
+    @Autowired
+    public void setSubjectService(SubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
 
     /**
      *
@@ -30,7 +42,7 @@ public class EditSubjectServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Subject subject = null;
         try {
-            subject = SubjectService.getSubjectById(Integer.valueOf(req.getParameter("id")));
+            subject = subjectService.getSubjectById(Integer.valueOf(req.getParameter("id")));
             req.setAttribute("id", subject.getId());
             req.setAttribute("name", subject.getName());
             req.setAttribute("description", subject.getDescription());
@@ -62,7 +74,7 @@ public class EditSubjectServlet extends HttpServlet {
         String sphere = req.getParameter("sphere");
         logger.trace("get for update - sphere: " + sphere);
 
-        if(SubjectService.updateSubject(id, name, description, sphere)){
+        if(subjectService.updateSubject(id, name, description, sphere)){
             resp.sendRedirect("/subjects");
         }else{
             logger.error("can not edit subject");

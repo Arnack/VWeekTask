@@ -1,6 +1,9 @@
 package ru.third.inno.task.controllers.user;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
 
@@ -16,9 +19,16 @@ import java.io.IOException;
  * This servlet is used to set attributes to session,
  * also it checks if user with such password and login is exist
  */
-
-public class LoginServlet extends HttpServlet {
+@Component
+public class LoginServlet extends InitServlet {
     Logger logger = Logger.getLogger(LoginServlet.class);
+
+    UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +41,7 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        User user = UserService.getUserByLoginAndPassword(login, password);
+        User user = userService.getUserByLoginAndPassword(login, password);
 
         if(user != null){
             HttpSession session = req.getSession();

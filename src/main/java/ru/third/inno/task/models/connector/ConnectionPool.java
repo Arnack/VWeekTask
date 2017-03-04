@@ -23,7 +23,7 @@ public class ConnectionPool {
     private String driver = "com.mysql.jdbc.Driver";
     String userName = "root";
     String password = "hminnopolis";
-    int initConnCnt = 8;
+    int initConnCnt = 30;
 
 
     public ConnectionPool() {

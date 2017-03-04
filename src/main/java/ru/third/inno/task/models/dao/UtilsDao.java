@@ -1,6 +1,7 @@
 package ru.third.inno.task.models.dao;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 import ru.third.inno.task.models.connector.ConnectionPool;
 import ru.third.inno.task.models.dao.interfaces.IutilsDao;
 
@@ -12,8 +13,8 @@ import java.sql.SQLException;
 /**
  * Created by yy on 27.02.17.
  */
-
-public class UtilsDao implements IutilsDao{
+@Repository
+public class UtilsDao implements iUtilsDao {
     private static Logger logger = Logger.getLogger(UtilsDao.class);
 
     private static final String SQL_GET_VALUE_BY_NAME =
@@ -22,7 +23,8 @@ public class UtilsDao implements IutilsDao{
     private static final String SET_VALUE_BY_NAME =
             "UPDATE utils SET value = ? WHERE name=?;";
 
-    public static String getValueByName(String name){
+    @Override
+    public String getValueByName(String name){
         String  value = null;
         try {
             ConnectionPool connectionPool = new ConnectionPool();
@@ -47,7 +49,8 @@ public class UtilsDao implements IutilsDao{
     return value;
     }
 
-    public static boolean setValueByName(String value, String name){
+    @Override
+    public boolean setValueByName(String value, String name){
         try {
             ConnectionPool connectionPool = new ConnectionPool();
             Connection conpool = connectionPool.retrieve();

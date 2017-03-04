@@ -1,6 +1,7 @@
 package ru.third.inno.task.models.dao;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 import ru.third.inno.task.common.exception.TaskDaoException;
 import ru.third.inno.task.models.connector.Connector;
 import ru.third.inno.task.models.pojo.Task;
@@ -12,7 +13,8 @@ import java.util.List;
 /**
  * Created by bot on 23.02.17.
  */
-public class TaskDao {
+@Repository
+public class TaskDao implements iTaskDao {
 
     private static Logger logger = Logger.getLogger(TaskDao.class);
     private static final String SQL_GET_ALL_TASKS =
@@ -30,7 +32,8 @@ public class TaskDao {
     private Statement statement;
     private Connection conn;
 
-    public static boolean updateTaskReadyness(String userId, String taskId, String isdone){
+    @Override
+    public boolean updateTaskReadyness(String userId, String taskId, String isdone){
         try(Connection connection = Connector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_TASK_READYNESS)) {
             preparedStatement.setString(1, isdone);
@@ -49,7 +52,8 @@ public class TaskDao {
         return false;
     }
 
-    public static boolean deleteTaskById(String userId, String id){
+    @Override
+    public boolean deleteTaskById(String userId, String id){
         try(Connection connection = Connector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_TASK_BY_USERID_AND_ID)) {
             preparedStatement.setString(1, userId);
@@ -67,7 +71,8 @@ public class TaskDao {
         return false;
     }
 
-    public static boolean newTask(String name, String description, String id){
+    @Override
+    public boolean newTask(String name, String description, String id){
         try(Connection connection = Connector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_TASK)) {
             preparedStatement.setString(1, name);
@@ -86,7 +91,8 @@ public class TaskDao {
         return false;
     }
 
-    public static List<Task> getAllTasks(String id) throws TaskDaoException {
+    @Override
+    public List<Task> getAllTasks(String id) throws TaskDaoException {
         System.out.println("");
         Task task = null;
 

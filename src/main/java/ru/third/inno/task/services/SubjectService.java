@@ -1,6 +1,8 @@
 package ru.third.inno.task.services;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.third.inno.task.common.exception.SubjectDaoException;
 import ru.third.inno.task.models.dao.SubjectDao;
 import ru.third.inno.task.models.pojo.Subject;
@@ -12,25 +14,36 @@ import java.util.List;
  * Created by bot on 23.02.17.
  */
 
-public class SubjectService {
+@Service
+public class SubjectService implements iSubjectService {
     private static Logger logger = Logger.getLogger(SubjectService.class);
 
-    public static boolean create(String name, String description, String sphere) {
-        return SubjectDao.createSubject(name, description, sphere);
+    private SubjectDao subjectDao;
+
+    @Autowired
+    public void setSubjectDao(SubjectDao subjectDao) {
+        this.subjectDao = subjectDao;
     }
 
-    public static List<Subject> getAllSubjects() {
+    @Override
+    public boolean create(String name, String description, String sphere) {
+        return subjectDao.createSubject(name, description, sphere);
+    }
+
+    @Override
+    public List<Subject> getAllSubjects() {
         try {
-            return SubjectDao.getAllSubjects();
+            return subjectDao.getAllSubjects();
         } catch (SubjectDaoException e) {
             logger.error("Cant get all subjects in SubjectServlet");
         }
         return null;
     }
 
-    public static List<Subject> getAllUserSubjects(int id) {
+    @Override
+    public List<Subject> getAllUserSubjects(int id) {
         try {
-            return SubjectDao.getAllUserSubjects(id);
+            return subjectDao.getAllUserSubjects(id);
         } catch (SubjectDaoException e) {
             logger.error("Cant get all subjects in SubjectServlet");
         } catch (SQLException e) {
@@ -39,9 +52,10 @@ public class SubjectService {
         return null;
     }
 
-    public static List<Subject> getAllNotUserSubjects(int id) {
+    @Override
+    public List<Subject> getAllNotUserSubjects(int id) {
         try {
-            return SubjectDao.getAllNotUserSubjects(id);
+            return subjectDao.getAllNotUserSubjects(id);
         } catch (SubjectDaoException e) {
             logger.error("Cant get all subjects in SubjectServlet");
         }
@@ -49,12 +63,14 @@ public class SubjectService {
     }
 
 
-    public static Subject getSubjectById(int id) throws SubjectDaoException {
-        return  SubjectDao.getSubjectById(id);
+    @Override
+    public Subject getSubjectById(int id) throws SubjectDaoException {
+        return  subjectDao.getSubjectById(id);
     }
 
-    public  static boolean updateSubject(String id, String name, String description, String sphere){
-        return SubjectDao.updateSubject(id, name, description, sphere);
+    @Override
+    public boolean updateSubject(String id, String name, String description, String sphere){
+        return subjectDao.updateSubject(id, name, description, sphere);
     }
 
 }

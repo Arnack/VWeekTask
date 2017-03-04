@@ -1,9 +1,13 @@
 package ru.third.inno.task.controllers.user;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.UserDaoException;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
+import ru.third.inno.task.services.iUserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,9 +21,17 @@ import java.io.IOException;
  * This servlet is for showing information to the user
  * Also user can change information and the password by sending post query
  */
-public class ProfileServlet extends HttpServlet {
+@Component
+public class ProfileServlet extends InitServlet {
 
     private static Logger logger = Logger.getLogger(ProfileServlet.class);
+
+    iUserService userService;
+
+    @Autowired
+    public void setUserService(iUserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,7 +41,7 @@ public class ProfileServlet extends HttpServlet {
 
             logger.trace("session id: " + session.getAttribute("id"));
 
-            user = UserService.getUserById(session.getAttribute("id").toString());
+            user = userService.getUserById(session.getAttribute("id").toString());
 
             logger.trace("trying to get user in profile servlet" + user);
 
@@ -52,7 +64,7 @@ public class ProfileServlet extends HttpServlet {
         String description = req.getParameter("description");
         String pass = req.getParameter("password");
 
-        if(UserService.updateUserDescription(id, description, pass)){
+        if(userService.updateUserDescription(id, description, pass)){
             resp.sendRedirect("/users");
         }else{
             logger.error("can not edit user");

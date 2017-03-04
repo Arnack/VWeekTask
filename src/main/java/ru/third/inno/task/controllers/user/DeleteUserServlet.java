@@ -1,6 +1,10 @@
 package ru.third.inno.task.controllers.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.third.inno.task.common.utils.InitServlet;
 import ru.third.inno.task.models.dao.UserDao;
+import ru.third.inno.task.models.dao.iUserDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +17,19 @@ import java.io.IOException;
  * This servlet gets userId to delete
  * Then invokes DAO's delete user method
  */
-public class DeleteUserServlet extends HttpServlet{
+@Component
+public class DeleteUserServlet extends InitServlet{
+
+    iUserDao userDao;
+
+    @Autowired
+    public void setUserDao(iUserDao userDao) {
+        this.userDao = userDao;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(UserDao.deleteUserById(req.getParameter("id"))){
+        if(userDao.deleteUserById(req.getParameter("id"))){
             resp.sendRedirect("/users");
         }else{
             resp.sendRedirect("/error.jsp");
@@ -25,7 +38,7 @@ public class DeleteUserServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(UserDao.deleteUserById(req.getParameter("id"))){
+        if(userDao.deleteUserById(req.getParameter("id"))){
             resp.sendRedirect("/users");
         }else{
             resp.sendRedirect("/error.jsp");

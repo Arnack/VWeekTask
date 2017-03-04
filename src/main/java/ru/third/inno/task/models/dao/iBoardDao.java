@@ -12,5 +12,7 @@ import java.sql.SQLException;
 public interface iBoardDao {
     boolean deleteBoard (String person_id, String subject_id);
 
+    boolean deleteBoardAniway (String subject_id);
+
     boolean addBoard(String person_id, String subject_id);
 }
