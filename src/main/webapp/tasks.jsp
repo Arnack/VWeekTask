@@ -29,7 +29,8 @@
 <div class="row">
     <div class="col-md-6 col-sm-12 list">
         <h2>List of Current Tasks</h2><br>
-        <table class="table-striped table-condensed table-hover">
+        <table class="table-striped table-condensed table-hover" style="width: 100%">
+
             <c:forEach items="${tasks}" var="task">
                 <c:if test="${task.isDone.toString().intern() == '0'.toString().intern() }">
                     <tr>
@@ -49,7 +50,8 @@
 
     <div class="col-md-6 col-sm-12">
         <h2>List of Finished Tasks</h2><br>
-        <table class="table-striped table-condensed table-hover">
+        <table class="table-striped table-condensed table-hover" style="width: 100%">
+
             <c:forEach items="${tasks}" var="task">
                 <c:if test="${task.isDone.toString().intern() != '0'.toString().intern() }">
                     <tr>

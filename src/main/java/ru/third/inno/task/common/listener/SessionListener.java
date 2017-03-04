@@ -22,7 +22,7 @@ import java.io.IOException;
 /**
  * Created by yy on 24.02.17.
  */
-public class SessionListener implements HttpSessionListener, HttpSessionAttributeListener, ServletContextListener{
+public class SessionListener implements HttpSessionListener, HttpSessionAttributeListener/*, ServletContextListener*/{
 
     Logger logger = Logger.getLogger(SessionListener.class);
 
@@ -87,7 +87,7 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     }
 
 
-    @Override
+    /*@Override
     public void contextInitialized(ServletContextEvent sce) {
         WebApplicationContextUtils
                 .getRequiredWebApplicationContext(sce.getServletContext())
@@ -98,5 +98,5 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
-    }
+    }*/
 }

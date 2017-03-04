@@ -8,8 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by yy on 17.02.17.
  */
 
-@XmlRootElement(name = "task")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Task {
     private int id;
     private String name;

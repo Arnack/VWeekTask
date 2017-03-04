@@ -8,8 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by yy on 17.02.17.
  */
 
-@XmlRootElement(name = "subject")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Subject {
     private int id;
     private String name;

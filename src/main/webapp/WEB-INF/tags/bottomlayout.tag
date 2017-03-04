@@ -16,8 +16,6 @@
 <script>
     $(document).ready(function () {
 
-
-
         $(document).on('input', '#login-reg', function () {
             var login = $('#login-reg').val();
 
@@ -78,6 +76,9 @@
                 }
             });
         });
+
+        $('[data-toggle="tooltip"]').tooltip();
+
     });
 
     function dnc() {

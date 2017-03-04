@@ -8,8 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by yy on 17.02.17.
  */
 
-@XmlRootElement(name = "board")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Board {
     private int id;
     private int progress;

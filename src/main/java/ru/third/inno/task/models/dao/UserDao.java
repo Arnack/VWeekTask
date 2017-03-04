@@ -326,16 +326,8 @@ public class UserDao implements iUserDao {
             }
         } catch (SQLException e) {
             throw new UserDaoException();
-        }finally {
-            if (connection != null){
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error("cant close pool");
-                }
-            }
-            connection = null;
         }
+
         return user;
     }
 
@@ -343,7 +335,6 @@ public class UserDao implements iUserDao {
     public boolean registerUser(String login, String password) throws SQLException, NamingException {
         Connection connection = VDBconn.getConn();
         try{
-
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_CREATE_USER);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
@@ -356,12 +347,8 @@ public class UserDao implements iUserDao {
             }
         } catch (SQLException e) {
             logger.error(e);
-        } finally {
-            if (connection != null){
-                connection.close();
-            }
-            connection = null;
         }
+
         return false;
     }
 
