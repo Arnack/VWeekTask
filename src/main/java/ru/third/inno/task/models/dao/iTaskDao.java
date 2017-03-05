@@ -16,4 +16,6 @@ public interface iTaskDao {
     boolean newTask(String name, String description, String id);
 
     List<Task> getAllTasks(String id) throws TaskDaoException;
+
+    boolean editTask(String id, String person_id, String name, String description);
 }

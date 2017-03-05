@@ -3,9 +3,13 @@ package ru.third.inno.task.models.dao;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import ru.third.inno.task.common.exception.TaskDaoException;
+import ru.third.inno.task.common.exception.UserDaoException;
 import ru.third.inno.task.models.connector.Connector;
+import ru.third.inno.task.models.connector.VDBconn;
 import ru.third.inno.task.models.pojo.Task;
+import ru.third.inno.task.models.pojo.User;
 
+import javax.naming.NamingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,9 @@ public class TaskDao implements iTaskDao {
     private static final String SQL_CREATE_TASK =
             "INSERT INTO task (`name`, `description`, `person_id`) " +
                     "VALUES(?, ?, ?) ";
+
+    private static final String SQL_UPDATE_TASK =
+            "UPDATE task SET name=?, description=? WHERE id=? AND person_id=?;";
 
     private static final String SQL_UPDATE_TASK_READYNESS =
             "UPDATE task SET isdone=? WHERE id=? AND person_id=?";
@@ -93,7 +100,6 @@ public class TaskDao implements iTaskDao {
 
     @Override
     public List<Task> getAllTasks(String id) throws TaskDaoException {
-        System.out.println("");
         Task task = null;
 
         List<Task> tasks = new ArrayList<>();
@@ -123,5 +129,48 @@ public class TaskDao implements iTaskDao {
         }
 
         return tasks;
+    }
+
+    @Override
+    public boolean editTask(String id, String person_id, String name, String description) {
+        Connection conpool = null;
+        try {
+            conpool = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+
+        try  {
+            PreparedStatement preparedStatement = conpool.prepareStatement(SQL_UPDATE_TASK);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, description);
+            preparedStatement.setString(3, id);
+            preparedStatement.setString(4, person_id);
+            int count = preparedStatement.executeUpdate();
+            if(count > 0){
+                logger.debug("inserted " + count);
+                return true;
+            }else{
+                logger.debug(id + " " + name + " " + description + " not inserted");
+                return false;
+            }
+        } catch (SQLException e) {
+            logger.error(e);
+        }finally {
+            if (conpool != null){
+                try {
+                    conpool.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            conpool = null;
+        }
+
+        return false;
+
     }
 }
