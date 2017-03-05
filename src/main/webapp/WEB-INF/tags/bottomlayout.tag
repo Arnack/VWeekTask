@@ -79,6 +79,40 @@
 
         $('[data-toggle="tooltip"]').tooltip();
 
+        $('#profile-form').submit(
+            function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                var enableText = "<div class='alert alert-success  alert-dismissable'>"
+                    + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+                    + "Profile succeessfully changed, <br> please relogin to see them" + "</div>";
+
+                var disableText = "<div class='alert alert-danger  alert-dismissable'>"
+                    + "<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>"
+                    + "Something gone wrong <br> Have fun!!!" + "</div>";
+                $.ajax({
+                    url : 'profile',
+                    type: "POST",
+                    data : {
+                        id : $('#id').val(),
+                        namex: $('#namex').val(),
+                        description: $('#description').val(),
+                        password: $('#password').val(),
+                    },
+                    success : function(responseText) {
+                        if(responseText.toString() == "1"){
+                            $("#alert-handler").html(enableText);
+                        } else {
+
+                            $("#alert-handler").html(disableText);
+                        }
+                    }
+                });
+
+            }
+        );
+
     });
 
     function dnc() {

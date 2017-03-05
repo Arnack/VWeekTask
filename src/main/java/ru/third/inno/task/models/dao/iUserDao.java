@@ -29,5 +29,9 @@ public interface iUserDao {
 
     List<User> getAllUsers() throws UserDaoException;
 
+    boolean updateUserInfo(String id, String name, String description, String pass);
+
+    public boolean updateJustUserDescription(String id, String description)  throws SQLException, NamingException;
+
     List<User> getAlUsers() throws UserDaoException, SQLException, NamingException, ClassNotFoundException, InstantiationException, IllegalAccessException;
 }

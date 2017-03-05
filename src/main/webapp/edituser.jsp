@@ -28,8 +28,8 @@
 
     <input type="hidden" name="id" value="<%=request.getAttribute("id")%>">
 
-    <label for="login">New Name: </label>
-    <input class="form-control" type="text" name="login" id="login" value="<%=request.getAttribute("login")%>" placeholder="new name" required>
+    <%--<label for="login">New Name: </label>--%>
+    <input class="form-control" type="hidden" name="login" id="login" value="<%=request.getAttribute("login")%>" placeholder="new name" required>
     <br>
 
     <input class="form-control" type="hidden" value="<%=request.getAttribute("password")%>" name="password" id="password">

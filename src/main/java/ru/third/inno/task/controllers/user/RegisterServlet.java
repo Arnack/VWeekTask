@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.UserDaoException;
 import ru.third.inno.task.common.utils.InitServlet;
+import ru.third.inno.task.common.utils.Salter;
 import ru.third.inno.task.models.dao.UserDao;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
@@ -58,9 +59,12 @@ public class RegisterServlet extends InitServlet {
 
         try {
             if (userDao.getUserByName(login)){
-                userService.registration(login, password);
+                String hashedpass = Salter.toSalt(login, password);
 
-                User user = userService.getUserByLoginAndPassword(login, password);
+                logger.trace(hashedpass);
+                userService.registration(login, hashedpass);
+
+                User user = userService.getUserByLoginAndPassword(login, hashedpass);
 
                 session.setAttribute("id", user.getId());
                 session.setAttribute("name", user.getLogin());

@@ -27,7 +27,7 @@
         <div id="login-info"></div>
         <!-- after login inf0 -->
         <input type="text" id="login-reg" name="login" placeholder="login" class="form-control" required><br>
-        <input type="password" name="password" placeholder="password" class="form-control" required><br>
+        <input type="password" name="password" placeholder="password" class="form-control" minlength="3" maxlength="28" required><br>
         <input type="submit" value="Send" class=" btn btn-primary">
 
     </form>

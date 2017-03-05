@@ -29,7 +29,7 @@
         <input type="text" id="login-field" name="login" placeholder="login" class="form-control"><br>
 
         <input type="password" name="password" placeholder="password" class="form-control"><br>
-        <input type="submit" value="Send" class="btn btn-primary">
+        <input type="submit" value="Send" minlength="3" class="btn btn-primary">
 
     </form>
 </div>

@@ -91,4 +91,20 @@ public class UserService implements iUserService {
         return userDao.updateUserDescription(id, description, pass);
     }
 
+    @Override
+    public boolean updateUserInfo(String id, String login, String description, String pass){
+        return userDao.updateUserInfo(id, login, description, pass);
+    }
+
+    @Override
+    public boolean updateJustUserDescription(String id, String description){
+        try {
+            return userDao.updateJustUserDescription(id, description);
+        } catch (SQLException e) {
+            logger.error(e);
+        } catch (NamingException e) {
+            logger.error(e);
+        }
+        return false;
+    }
 }

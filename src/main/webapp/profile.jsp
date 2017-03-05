@@ -7,6 +7,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <t:uplayout>
@@ -22,6 +23,13 @@
 
 <hr>
 <div class="row">
+    <div id="alert-handler">
+
+    </div>
+
+
+
+
 <div class="col-md-6 col-xs-12">
     <ul>
         <li>Name: <%=session.getAttribute("name") %> </li>
@@ -32,10 +40,13 @@
 
     <h3>You can update you profile</h3>
 
-    <form action="/profile" method="post">
+    <form id="profile-form"><!--action="/profile" method="post"-->
 
         <input type="hidden" name="id" value="<%=session.getAttribute("id")%>">
 
+        <%--<label for="namex">Name(login)</label>--%>
+        <input type="hidden" id="namex" name="namex" class="form-control" value="<%=session.getAttribute("name")%>">
+<br>
         <label for="description">e-mail:</label>
         <input class="form-control" type="text" name="description" id="description" placeholder="password" value="<%=request.getAttribute("description")%>">
 <br>

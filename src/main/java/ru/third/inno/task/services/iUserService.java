@@ -26,4 +26,8 @@ public interface iUserService {
     boolean updateUser(String id, String login, String password, String description, String role);
 
     boolean updateUserDescription(String id, String description, String pass);
+
+    boolean updateUserInfo(String id, String login, String description, String pass);
+
+    boolean updateJustUserDescription(String id, String description);
 }

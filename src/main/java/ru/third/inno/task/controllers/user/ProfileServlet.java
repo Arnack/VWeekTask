@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.UserDaoException;
 import ru.third.inno.task.common.utils.InitServlet;
+import ru.third.inno.task.common.utils.Salter;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
 import ru.third.inno.task.services.iUserService;
@@ -50,6 +51,7 @@ public class ProfileServlet extends InitServlet {
         } catch (UserDaoException e) {
 
             req.setAttribute("message", "Cant find this user, sorry");
+            System.out.println("error54");
             req.getRequestDispatcher("/error.jsp").forward(req, resp);
             logger.error("error while getting user by id " + e);
         }
@@ -61,14 +63,25 @@ public class ProfileServlet extends InitServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         String id = session.getAttribute("id").toString();
+        String login = req.getParameter("namex").toString();
         String description = req.getParameter("description");
         String pass = req.getParameter("password");
 
-        if(userService.updateUserDescription(id, description, pass)){
-            resp.sendRedirect("/users");
+        String hashedPass = Salter.toSalt(login, pass);
+
+        if(userService.updateUserDescription(id, description, hashedPass)){
+
+            String message = "Your profile successfully updated";
+            req.setAttribute("message", message);
+
+            resp.getWriter().write("1");
+
+            //getServletContext().getRequestDispatcher("/profile").forward(req, resp);
+           // resp.sendRedirect("/profile");
         }else{
             logger.error("can not edit user");
-            resp.sendRedirect("/error.jsp");
+            resp.getWriter().write("0");
+            //resp.sendRedirect("/error.jsp");
         }
     }
 }

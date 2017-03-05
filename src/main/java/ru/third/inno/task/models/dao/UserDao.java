@@ -37,6 +37,9 @@ public class UserDao implements iUserDao {
     private static final String SQL_UPDATE_USER_DESCRIPTION_AND_PASS =
             "UPDATE person SET description=?, password=? WHERE id=?";
 
+    private static final String SQL_UPDATE_USER_DESCRIPTION_AND_PASS_AND_NAME =
+            "UPDATE person SET name=? description=?, password=? WHERE id=?";
+
     private static String SQL_GET_ID_BY_NAME = "SELECT id FROM person WHERE name=?";
     private static String SQL_GET_EADRESS_BY_NAME = "SELECT description FROM person WHERE name=?";
     private static String SQL_FIND_USER_ON_ID = "SELECT * FROM person WHERE id=?";
@@ -140,6 +143,87 @@ public class UserDao implements iUserDao {
             preparedStatement.setString(1, description);
             preparedStatement.setString(2, pass);
             preparedStatement.setString(3, id);
+            int count = preparedStatement.executeUpdate();
+            if(count > 0){
+                logger.debug("inserted " + count);
+                return true;
+            }else{
+                logger.debug(id +  " not updated");
+            }
+        } catch (SQLException e) {
+            logger.error(e);
+        }finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUserInfo(String id, String name, String description, String pass){
+
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_DESCRIPTION_AND_PASS_AND_NAME);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, description);
+            preparedStatement.setString(3, pass);
+            preparedStatement.setString(4, id);
+            int count = preparedStatement.executeUpdate();
+            if(count > 0){
+                logger.debug("inserted " + count);
+                System.out.println("inserted " + count);
+                return true;
+            }else{
+                logger.debug(id +  " not updated");
+                System.out.println(id +  " not updated");
+            }
+        } catch (SQLException e) {
+            logger.error(e);
+        }finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error("cant close pool");
+                }
+            }
+            connection = null;
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean updateJustUserDescription(String id, String description){
+
+        Connection connection = null;
+        try {
+            connection = VDBconn.getConn();
+        } catch (NamingException e) {
+            logger.error("naming exeption");
+        } catch (SQLException e) {
+            logger.error("sql error");
+        }
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_DESCRIPTION);
+            preparedStatement.setString(1, description);
+            preparedStatement.setString(2, id);
             int count = preparedStatement.executeUpdate();
             if(count > 0){
                 logger.debug("inserted " + count);

@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.utils.InitServlet;
+import ru.third.inno.task.common.utils.Salter;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
 
@@ -41,7 +42,17 @@ public class LoginServlet extends InitServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        User user = userService.getUserByLoginAndPassword(login, password);
+        logger.trace("forsalt: " + password);
+        System.out.println("forsalt: " + password);
+
+        String hashedpass = Salter.toSalt(login, password);
+
+        logger.trace("salt: " + hashedpass);
+        System.out.println("salt: " + hashedpass);
+
+        User user = userService.getUserByLoginAndPassword(login, hashedpass);
+
+        if (user == null){user = userService.getUserByLoginAndPassword(login, password);}
 
         if(user != null){
             HttpSession session = req.getSession();
@@ -54,7 +65,8 @@ public class LoginServlet extends InitServlet {
             resp.sendRedirect("/index");
         }else{
             logger.trace("false");
-            String message = "Login and password are incorrect, sorry\r\n <br> Please, check them and try again";
+            String message = "Login and password are incorrect, sorry\r\n " +
+                    "<br> Please, check them and try again";
             req.setAttribute("message", message);
             getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
         }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.third.inno.task.common.exception.UserDaoException;
 import ru.third.inno.task.common.utils.InitServlet;
+import ru.third.inno.task.common.utils.Salter;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
 import ru.third.inno.task.services.iUserService;
