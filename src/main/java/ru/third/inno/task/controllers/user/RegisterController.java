@@ -27,7 +27,7 @@ import java.sql.SQLException;
  */
 @Controller
 public class RegisterController {
-    Logger logger = Logger.getLogger(RegisterServlet.class);
+    Logger logger = Logger.getLogger(RegisterController.class);
 
     UserDao userDao;
 
@@ -53,8 +53,8 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView postRegistration(HttpServletRequest req,
-                                   Model model, @RequestParam(name="login") String login,
-                                   @RequestParam(name="password") String password ){
+                                         @RequestParam(name="login") String login,
+                                         @RequestParam(name="password") String password ){
 
         HttpSession session = req.getSession();
         ModelAndView modelAndView = new ModelAndView();

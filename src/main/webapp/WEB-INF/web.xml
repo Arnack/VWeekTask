@@ -18,14 +18,14 @@
         <!--<url-pattern>/index</url-pattern>-->
     <!--</servlet-mapping>-->
     
-    <servlet>
-        <servlet-name>Users</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.UserServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Users</servlet-name>
-        <url-pattern>/users</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Users</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.UserServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Users</servlet-name>-->
+        <!--<url-pattern>/users</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--<servlet>-->
         <!--<servlet-name>Register</servlet-name>-->
@@ -117,14 +117,14 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>Profile</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.ProfileServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Profile</servlet-name>
-        <url-pattern>/profile</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Profile</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.ProfileServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Profile</servlet-name>-->
+        <!--<url-pattern>/profile</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>ReadTask</servlet-name>

@@ -1,25 +1,27 @@
 package ru.third.inno.task.controllers.user;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import ru.third.inno.task.common.utils.InitServlet;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import ru.third.inno.task.models.pojo.User;
 import ru.third.inno.task.services.UserService;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by yy on 23.02.17.
- * This servlet sends all users to the front
- * to showing info about them
+ * Created by yy on 06.03.17.
  */
-@Component
-public class UserServlet extends InitServlet{
+@Controller
+public class UserController {
+
+    Logger logger = Logger.getLogger(UserController.class);
 
     UserService userService;
 
@@ -28,25 +30,25 @@ public class UserServlet extends InitServlet{
         this.userService = userService;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    protected ModelAndView getUser() {
         List<User> users = null;
         try {
             users = userService.getAllUsers();
         } catch (ClassNotFoundException e) {
 
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            logger.error(e);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
-        req.setAttribute("users", users);
 
-        req.getRequestDispatcher("/users.jsp").forward(req, resp);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("users", users);
+
+        modelAndView.setViewName("/users");
+
+        return  modelAndView;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 }
