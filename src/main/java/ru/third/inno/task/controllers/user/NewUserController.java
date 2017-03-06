@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import ru.third.inno.task.common.exception.UserDaoException;
 import ru.third.inno.task.models.dao.iUserDao;
 import ru.third.inno.task.services.iUserService;
@@ -37,24 +39,32 @@ public class NewUserController {
     }
 
     @RequestMapping(value = "/newuser", method = RequestMethod.GET)
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("message", null);
-        req.getRequestDispatcher("/newuser.jsp").forward(req, resp);
+    protected ModelAndView getNewUser(){
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("message", null);
+
+        modelAndView.setViewName("/newuser");
+
+        return modelAndView;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(value = "/newuser", method = RequestMethod.POST)
+    protected ModelAndView postNewUser( @RequestParam(name="login") String login,
+                                        @RequestParam(name="password") String password
+                                        ) {
 
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-
+        ModelAndView modelAndView = new ModelAndView();
         try {
             if (userDao.getUserByName(login)) {
                 userService.registration(login, password);
             }else {
                 String message = "This username is already exists, sorry\r\n <br> Please, try again with another one";
-                req.setAttribute("message", message);
-                getServletContext().getRequestDispatcher("/newuser.jsp").forward(req, resp);
+
+                modelAndView.addObject("message", message);
+
+                modelAndView.setViewName("/newuser");
             }
         } catch (UserDaoException e) {
             logger.error("error while adding new user");
@@ -63,7 +73,9 @@ public class NewUserController {
         } catch (NamingException e) {
             logger.error("new user naming error" + e);
         }
-        resp.sendRedirect("/users");
+        modelAndView.setViewName("/newuser");
+
+        return modelAndView;
     }
 
 }
