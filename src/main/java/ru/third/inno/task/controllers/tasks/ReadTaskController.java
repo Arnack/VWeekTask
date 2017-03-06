@@ -2,15 +2,15 @@ package ru.third.inno.task.controllers.tasks;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import ru.third.inno.task.common.exception.TaskDaoException;
-import ru.third.inno.task.common.utils.InitServlet;
-import ru.third.inno.task.models.dao.TaskDao;
 import ru.third.inno.task.models.dao.iTaskDao;
 import ru.third.inno.task.models.pojo.Task;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,13 +18,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by yy on 25.02.17.
- * This srevlet is for getting all tasks
+ * Created by yy on 06.03.17.
  */
-@Component
-public class ReadTaskServlet extends InitServlet {
-
-    Logger logger = Logger.getLogger(ReadTaskServlet.class);
+@Controller
+public class ReadTaskController {
+    Logger logger = Logger.getLogger(ReadTaskController.class);
 
     iTaskDao taskDao;
 
@@ -33,9 +31,11 @@ public class ReadTaskServlet extends InitServlet {
         this.taskDao = taskDao;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(value = "/tasks")
+    protected ModelAndView readTasks(HttpServletRequest req) throws ServletException, IOException {
         List<Task> tasks = null;
+
+        ModelAndView modelAndView = new ModelAndView();
 
         HttpSession session = req.getSession(false);
         String id = session.getAttribute("id").toString();
@@ -45,15 +45,12 @@ public class ReadTaskServlet extends InitServlet {
             logger.trace("after get all tasks" + tasks);
         } catch (TaskDaoException e) {
             logger.error("Error in read task servlet" + e);
-            resp.sendRedirect("/error.jsp");
+            modelAndView.setViewName("redirect: /error");
         }
-        req.setAttribute("tasks", tasks);
+        modelAndView.addObject("tasks", tasks);
 
-        req.getRequestDispatcher("/tasks.jsp").forward(req, resp);
-    }
+        modelAndView.setViewName("/tasks");
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        return modelAndView;
     }
 }

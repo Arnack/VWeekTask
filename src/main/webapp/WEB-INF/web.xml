@@ -63,32 +63,32 @@
         <!--<url-pattern>/newuser</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>CreateSubject</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.subject.CreateSubjectServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CreateSubject</servlet-name>
-        <url-pattern>/newsubject</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>CreateSubject</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.subject.CreateSubjectServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>CreateSubject</servlet-name>-->
+        <!--<url-pattern>/newsubject</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>DeleteSubject</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.subject.DeleteSubjectServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteSubject</servlet-name>
-        <url-pattern>/deletesubject</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>DeleteSubject</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.subject.DeleteSubjectServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>DeleteSubject</servlet-name>-->
+        <!--<url-pattern>/deletesubject</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>EditSubject</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.subject.EditSubjectServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditSubject</servlet-name>
-        <url-pattern>/editsubject</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>EditSubject</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.subject.EditSubjectServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>EditSubject</servlet-name>-->
+        <!--<url-pattern>/editsubject</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>ReadSubjects</servlet-name>
@@ -126,14 +126,14 @@
         <!--<url-pattern>/profile</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>ReadTask</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.tasks.ReadTaskServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ReadTask</servlet-name>
-        <url-pattern>/tasks</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>ReadTask</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.tasks.ReadTaskServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>ReadTask</servlet-name>-->
+        <!--<url-pattern>/tasks</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>StartSubject</servlet-name>
@@ -162,23 +162,23 @@
         <!--<url-pattern>/newtask</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>DoneTask</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.tasks.DoneTaskServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DoneTask</servlet-name>
-        <url-pattern>/donetask</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>DoneTask</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.tasks.DoneTaskServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>DoneTask</servlet-name>-->
+        <!--<url-pattern>/donetask</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>DeleteTask</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.tasks.DeleteTaskServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteTask</servlet-name>
-        <url-pattern>/deletetask</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>DeleteTask</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.tasks.DeleteTaskServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>DeleteTask</servlet-name>-->
+        <!--<url-pattern>/deletetask</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>ToggleNight</servlet-name>
