@@ -153,14 +153,14 @@
         <url-pattern>/finishsubject</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>NewTask</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.tasks.CreateTaskServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NewTask</servlet-name>
-        <url-pattern>/newtask</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>NewTask</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.tasks.CreateTaskServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>NewTask</servlet-name>-->
+        <!--<url-pattern>/newtask</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>DoneTask</servlet-name>
@@ -189,14 +189,14 @@
         <url-pattern>/togglenight</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>loginchecker</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.ajax.LoginCheckerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>loginchecker</servlet-name>
-        <url-pattern>/loginchecker</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>loginchecker</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.ajax.LoginCheckerServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>loginchecker</servlet-name>-->
+        <!--<url-pattern>/loginchecker</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--<servlet>-->
         <!--<servlet-name>mailchecker</servlet-name>-->
