@@ -76,12 +76,9 @@ public class ProfileServlet extends InitServlet {
 
             resp.getWriter().write("1");
 
-            //getServletContext().getRequestDispatcher("/profile").forward(req, resp);
-           // resp.sendRedirect("/profile");
         }else{
             logger.error("can not edit user");
             resp.getWriter().write("0");
-            //resp.sendRedirect("/error.jsp");
         }
     }
 }

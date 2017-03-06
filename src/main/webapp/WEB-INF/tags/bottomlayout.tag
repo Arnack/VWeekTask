@@ -104,7 +104,6 @@
                         if(responseText.toString() == "1"){
                             $("#alert-handler").html(enableText);
                         } else {
-
                             $("#alert-handler").html(disableText);
                         }
                     }

@@ -5,18 +5,18 @@
          version="3.1">
 
 
-    <servlet>
-        <servlet-name>Index</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.IndexServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Index</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Index</servlet-name>
-        <url-pattern>/index</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Index</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.IndexServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Index</servlet-name>-->
+        <!--<url-pattern>/is</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Index</servlet-name>-->
+        <!--<url-pattern>/index</url-pattern>-->
+    <!--</servlet-mapping>-->
     
     <servlet>
         <servlet-name>Users</servlet-name>
@@ -251,16 +251,16 @@
         <listener-class>ru.third.inno.task.common.listener.SessionListener</listener-class>
     </listener>
 
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    <!--<listener>-->
+        <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+    <!--</listener>-->
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            /WEB-INF/beans.xml
-        </param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>contextConfigLocation</param-name>-->
+        <!--<param-value>-->
+            <!--/WEB-INF/beans.xml-->
+        <!--</param-value>-->
+    <!--</context-param>-->
 
 
     <resource-ref>
@@ -269,5 +269,35 @@
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
+
+
+    <!-- Add Support for Spring -->
+    <!-- Создает Spring Container, доступный всем сервлетам и фильтрам -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- Обрабатывает все запросы. Центральное понятие-->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.form</url-pattern>
+    </servlet-mapping>
     
 </web-app>

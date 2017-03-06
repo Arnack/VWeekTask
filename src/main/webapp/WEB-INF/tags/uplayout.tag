@@ -136,7 +136,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-    </button> <a href="../" class="navbar-brand">IS Self Development</a>
+    </button> <a href="../index" class="navbar-brand">IS Self Development</a>
     </div>
 
 
