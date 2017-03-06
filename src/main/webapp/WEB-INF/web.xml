@@ -36,32 +36,32 @@
         <!--<url-pattern>/register</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>EditUser</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.EditUserServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditUser</servlet-name>
-        <url-pattern>/edituser</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>EditUser</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.EditUserServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>EditUser</servlet-name>-->
+        <!--<url-pattern>/edituser</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>DeleteUser</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.DeleteUserServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteUser</servlet-name>
-        <url-pattern>/deleteuser</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>DeleteUser</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.DeleteUserServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>DeleteUser</servlet-name>-->
+        <!--<url-pattern>/deleteuser</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>NewUser</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.NewUserServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NewUser</servlet-name>
-        <url-pattern>/newuser</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>NewUser</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.NewUserServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>NewUser</servlet-name>-->
+        <!--<url-pattern>/newuser</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet>
         <servlet-name>CreateSubject</servlet-name>
@@ -99,23 +99,23 @@
         <url-pattern>/subjects</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.LoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Login</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.LoginServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Login</servlet-name>-->
+        <!--<url-pattern>/login</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.LogoutServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Logout</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.LogoutServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Logout</servlet-name>-->
+        <!--<url-pattern>/logout</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--<servlet>-->
         <!--<servlet-name>Profile</servlet-name>-->
@@ -198,14 +198,14 @@
         <url-pattern>/loginchecker</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>mailchecker</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.user.ajax.MailCheckerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>mailchecker</servlet-name>
-        <url-pattern>/mailchecker</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>mailchecker</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.user.ajax.MailCheckerServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>mailchecker</servlet-name>-->
+        <!--<url-pattern>/mailchecker</url-pattern>-->
+    <!--</servlet-mapping>-->
 
 
     <filter>
