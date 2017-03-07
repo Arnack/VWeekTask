@@ -81,7 +81,8 @@ public class RegisterController {
             }
         } catch (UserDaoException e) {
             logger.error("cant check if user exists");
-            modelAndView.setViewName("redirect: /error");
+            modelAndView.setViewName("/error");
+            return modelAndView;
         } catch (SQLException e) {
             logger.error(e);
         } catch (NamingException e) {

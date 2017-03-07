@@ -68,11 +68,11 @@ public class EditUserController {
 
         if(userService.updateUser(id, login, password, description, role)){
             modelAndView.setViewName("redirect: /users");
+            return modelAndView;
         }else{
             logger.error("can not edit user");
             modelAndView.setViewName("redirect: /error");
+            return modelAndView;
         }
-        modelAndView.setViewName("redirect: /users");
-        return modelAndView;
     }
 }

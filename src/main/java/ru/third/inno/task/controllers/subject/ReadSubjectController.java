@@ -2,14 +2,13 @@ package ru.third.inno.task.controllers.subject;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import ru.third.inno.task.common.utils.InitServlet;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import ru.third.inno.task.models.pojo.Subject;
-import ru.third.inno.task.services.SubjectService;
 import ru.third.inno.task.services.iSubjectService;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,11 +16,10 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by yy on 24.02.17.
+ * Created by yy on 07.03.17.
  */
-@Component
-public class ReadSubjectsServlet extends InitServlet {
-    Logger logger = Logger.getLogger(ReadSubjectsServlet.class);
+public class ReadSubjectController {
+    Logger logger = Logger.getLogger(ReadSubjectController.class);
 
     iSubjectService subjectService;
 
@@ -35,9 +33,10 @@ public class ReadSubjectsServlet extends InitServlet {
      * @throws ServletException
      * @throws IOException
      */
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(value = "/subjects")
+    protected ModelAndView readsubjects(HttpServletRequest req) throws ServletException {
         List<Subject> subjects = null;
+        ModelAndView modelAndView = new ModelAndView();
 
         /**
          * gets all subjects
@@ -53,7 +52,7 @@ public class ReadSubjectsServlet extends InitServlet {
          * gets not users subjects
          */
         subjects = subjectService.getAllNotUserSubjects(id);
-        req.setAttribute("subjects", subjects);
+        modelAndView.addObject("subjects", subjects);
 
         List<Subject> userSubjects = null;
         /**
@@ -61,14 +60,10 @@ public class ReadSubjectsServlet extends InitServlet {
          */
         userSubjects = subjectService.getAllUserSubjects(id);
 
+        modelAndView.addObject("userSubjects", userSubjects);
 
-        req.setAttribute("userSubjects", userSubjects);
-
-        req.getRequestDispatcher("/subjects.jsp").forward(req, resp);
+        modelAndView.setViewName("/subjects");
+        return modelAndView;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 }

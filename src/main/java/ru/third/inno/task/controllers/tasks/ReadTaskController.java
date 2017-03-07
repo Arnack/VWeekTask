@@ -46,11 +46,11 @@ public class ReadTaskController {
         } catch (TaskDaoException e) {
             logger.error("Error in read task servlet" + e);
             modelAndView.setViewName("redirect: /error");
+            return modelAndView;
         }
         modelAndView.addObject("tasks", tasks);
 
         modelAndView.setViewName("/tasks");
-
         return modelAndView;
     }
 }

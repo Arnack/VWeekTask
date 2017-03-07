@@ -39,11 +39,9 @@ public class ProfileController {
         ModelAndView modelAndView = new ModelAndView();
         try {
             HttpSession session = req.getSession(false);
-
             logger.trace("session id: " + session.getAttribute("id"));
 
             user = userService.getUserById(session.getAttribute("id").toString());
-
             logger.trace("trying to get user in profile servlet" + user);
 
             modelAndView.addObject("name", user.getLogin());
@@ -52,8 +50,10 @@ public class ProfileController {
 
             modelAndView.addObject("message", "Cant find this user, sorry");
 
-            modelAndView.setViewName("redirect: /error.jsp");
             logger.error("error while getting user by id " + e);
+            modelAndView.setViewName("/error.jsp");
+            return modelAndView;
+
         }
         modelAndView.addObject("user", user);
         modelAndView.setViewName("/profile");

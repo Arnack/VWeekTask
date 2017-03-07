@@ -42,18 +42,14 @@ public class NewUserController {
     protected ModelAndView getNewUser(){
 
         ModelAndView modelAndView = new ModelAndView();
-
         modelAndView.addObject("message", null);
-
         modelAndView.setViewName("/newuser");
-
         return modelAndView;
     }
 
     @RequestMapping(value = "/newuser", method = RequestMethod.POST)
     protected ModelAndView postNewUser( @RequestParam(name="login") String login,
-                                        @RequestParam(name="password") String password
-                                        ) {
+                                        @RequestParam(name="password") String password) {
 
         ModelAndView modelAndView = new ModelAndView();
         try {
@@ -61,20 +57,24 @@ public class NewUserController {
                 userService.registration(login, password);
             }else {
                 String message = "This username is already exists, sorry\r\n <br> Please, try again with another one";
-
                 modelAndView.addObject("message", message);
-
                 modelAndView.setViewName("/newuser");
+                return modelAndView;
             }
         } catch (UserDaoException e) {
             logger.error("error while adding new user");
+            modelAndView.setViewName("/error");
+            return modelAndView;
         } catch (SQLException e) {
             logger.error(e);
+            modelAndView.setViewName("/error");
+            return modelAndView;
         } catch (NamingException e) {
             logger.error("new user naming error" + e);
+            modelAndView.setViewName("/error");
+            return modelAndView;
         }
         modelAndView.setViewName("/newuser");
-
         return modelAndView;
     }
 

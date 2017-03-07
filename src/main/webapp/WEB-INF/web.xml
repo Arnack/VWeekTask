@@ -90,14 +90,14 @@
         <!--<url-pattern>/editsubject</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>ReadSubjects</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.subject.ReadSubjectsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ReadSubjects</servlet-name>
-        <url-pattern>/subjects</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>ReadSubjects</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.subject.ReadSubjectsServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>ReadSubjects</servlet-name>-->
+        <!--<url-pattern>/subjects</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--<servlet>-->
         <!--<servlet-name>Login</servlet-name>-->
@@ -135,23 +135,23 @@
         <!--<url-pattern>/tasks</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>StartSubject</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.subject.StartSubjectServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>StartSubject</servlet-name>
-        <url-pattern>/startsubject</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>StartSubject</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.subject.StartSubjectServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>StartSubject</servlet-name>-->
+        <!--<url-pattern>/startsubject</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>FinishSubject</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.subject.FinishSubjectServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FinishSubject</servlet-name>
-        <url-pattern>/finishsubject</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>FinishSubject</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.subject.FinishSubjectServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>FinishSubject</servlet-name>-->
+        <!--<url-pattern>/finishsubject</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--<servlet>-->
         <!--<servlet-name>NewTask</servlet-name>-->
@@ -180,14 +180,14 @@
         <!--<url-pattern>/deletetask</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>ToggleNight</servlet-name>
-        <servlet-class>ru.third.inno.task.controllers.additional.ToggleNightServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ToggleNight</servlet-name>
-        <url-pattern>/togglenight</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>ToggleNight</servlet-name>-->
+        <!--<servlet-class>ru.third.inno.task.controllers.additional.ToggleNightServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>ToggleNight</servlet-name>-->
+        <!--<url-pattern>/togglenight</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--<servlet>-->
         <!--<servlet-name>loginchecker</servlet-name>-->

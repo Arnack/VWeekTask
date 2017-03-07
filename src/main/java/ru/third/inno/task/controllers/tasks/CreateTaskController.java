@@ -53,14 +53,13 @@ public class CreateTaskController {
             logger.trace("new task success");
             modelAndView.addObject("message", "New task successfully created");
 
-            modelAndView.setViewName("redirect: /tasks");
+            modelAndView.setViewName("/tasks");
+            return modelAndView;
         }else {
             logger.error("error while adding new task");
-            modelAndView.setViewName("redirect: /error");
+            modelAndView.setViewName("/error");
+            return modelAndView;
         }
 
-        modelAndView.setViewName("/tasks");
-
-        return modelAndView;
     }
 }

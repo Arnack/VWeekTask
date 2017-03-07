@@ -47,8 +47,7 @@ public class UserController {
         modelAndView.addObject("users", users);
 
         modelAndView.setViewName("/users");
-
-        return  modelAndView;
+        return modelAndView;
     }
 
 }
